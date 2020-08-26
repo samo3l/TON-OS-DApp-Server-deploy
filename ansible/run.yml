@@ -1,0 +1,48 @@
+---
+- name: arangodb
+  hosts: arangodb
+  remote_user: root
+  roles:
+    - arangodb
+
+#- name: ELK
+#  hosts: ELK
+#  remote_user: root
+#  roles:
+#    - ELK
+#
+#- name: kafka
+#  hosts: kafka
+#  remote_user: root
+#  roles:
+#    - kafka
+#
+#- name: proxy
+#  hosts: proxy
+#  remote_user: root
+#  roles:
+#    - proxy
+#
+#- name: q-server
+#  hosts: q-server
+#  remote_user: root
+#  roles:
+#    - q-server
+#
+#- name: statsd
+#  hosts: statsd
+#  remote_user: root
+#  roles:
+#    - statsd
+#
+#- name: ton-node
+#  hosts: ton-node
+#  remote_user: root
+#  roles:
+#    - ton-node
+#
+#- name: web.root
+#  hosts: web.root
+#  remote_user: root
+#  roles:
+#    - web.root

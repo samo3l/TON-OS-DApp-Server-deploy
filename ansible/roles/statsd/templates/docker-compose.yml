@@ -1,0 +1,26 @@
+version: '2.2'
+services:
+  statsd:
+    #        build:
+    #            context: ./build
+    image: "${IMAGE}"
+    container_name: statsd
+    restart: unless-stopped
+    expose:
+      - "${UDP_PORT}/udp"
+    ports:
+      - "${IntIP}:${TCP_PORT}:${TCP_PORT}"
+    networks:
+      - proxy_nw
+    volumes:
+      - ./statsd-mapping.yaml:/statsd-mappings/statsd-mapping.yaml
+    command: ["${ARGS}"]
+    logging: 
+      driver: gelf 
+      options:
+        gelf-address: "udp://localhost:12201"
+        tag: "statsd"
+
+networks:
+  proxy_nw:
+    external: true

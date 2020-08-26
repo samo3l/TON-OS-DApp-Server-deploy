@@ -1,0 +1,16 @@
+
+- name: "Create /opt dir"
+  shell: 'mkdir -p /opt'
+
+- name: "Copy build files"
+  copy:
+    src: '.'
+    dest: '/opt/{{ role_name }}/'
+
+- name: "Template docker-compose.yml"
+  template:
+    src: 'docker-compose.yml'
+    dest: '/opt/{{ role_name }}'
+
+- name: "Run docker-compose"
+  shell: 'cd /opt/{{ role_name }} && docker-compose up -d'

@@ -1,0 +1,24 @@
+[arangodb]
+localhost ansible_connection=local
+
+#[ELK]
+#localhost
+#
+#[kafka]
+#localhost
+#
+#[proxy]
+#localhost
+#
+#[q-server]
+#localhost
+#
+#[statsd]
+#localhost
+#
+#[ton-node]
+#localhost
+#
+#[web.root]
+#localhost
+
