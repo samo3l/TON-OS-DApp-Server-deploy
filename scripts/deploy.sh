@@ -1,8 +1,32 @@
 #!/bin/bash -eE
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+# shellcheck source=env.sh
 . "${SCRIPT_DIR}/env.sh"
 
+TMP_DIR=/tmp/$(basename "$0" .sh)_$$
+rm -rf "${TMP_DIR}"
+mkdir -p "${TMP_DIR}"
+
+set +eE
+
+for BUNDLE_COMPONENT in proxy web.root arangodb q-server kafka statsd ton-node ELK; do
+    if [ "${CLEAN_HOST}" = "yes" ]; then
+        cd "${DOCKER_COMPOSE_DIR}/${BUNDLE_COMPONENT}/" && docker-compose down --volumes --remove-orphans
+    else
+        cd "${DOCKER_COMPOSE_DIR}/${BUNDLE_COMPONENT}/" && docker-compose stop
+    fi
+done
+
+if [ "${CLEAN_HOST}" = "yes" ]; then
+    docker system prune --all --force --volumes
+    docker network create proxy_nw
+fi
+
 cd "${DOCKER_COMPOSE_DIR}/ELK" && docker-compose up -d
+sleep 30
+
+set -eE
 
 sed -i "s|yourdomain.com|${HOSTNAME}|g" "${DOCKER_COMPOSE_DIR}/arangodb/docker-compose.yml"
 sed -i "s|email for notification|${EMAIL_FOR_NOTIFICATIONS}|g" "${DOCKER_COMPOSE_DIR}/arangodb/docker-compose.yml"
@@ -75,4 +99,11 @@ rm -rf "${DOCKER_COMPOSE_DIR}/ton-node/build/ton-node"
 cd "${DOCKER_COMPOSE_DIR}/ton-node/build" && git clone "${TON_NODE_GITHUB_REPO}" ton-node
 cd "${DOCKER_COMPOSE_DIR}/ton-node/build/ton-node" && git checkout "${TON_NODE_GITHUB_COMMIT_ID}"
 
+echo "==============================================================================="
+echo "INFO: starting node on ${HOSTNAME}..."
 cd "${DOCKER_COMPOSE_DIR}/ton-node/" && docker-compose up -d
+echo "INFO: starting node on ${HOSTNAME}... DONE"
+echo "==============================================================================="
+
+docker ps -a
+rm -rf "${TMP_DIR}"
