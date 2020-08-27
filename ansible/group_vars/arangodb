@@ -10,13 +10,13 @@ ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY: 343579738368
 
 # arangodbni service
 
-ARANGO_NO_AUTH: 1
-VIRTUAL_HOST: "arangoni.baremetal01.fra02.ibm.cloud"
-VIRTUAL_PORT: 8529
-LETSENCRYPT_HOST: "arangoni.baremetal01.fra02.ibm.cloud"
-LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"
+ARANGONI_NO_AUTH: 1
+ARANGONI_VIRTUAL_HOST: "arangoni.baremetal01.fra02.ibm.cloud"
+ARANGONI_VIRTUAL_PORT: 8529
+ARANGONI_LETSENCRYPT_HOST: "arangoni.baremetal01.fra02.ibm.cloud"
+ARANGONI_LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"
 
-# .env
+# common
 
 ARANGO_ROOT_PASSWORD: "iJJ9fWxb9Z6CS1aPagoW"
 NETWORK_TYPE: "net.ton.dev"

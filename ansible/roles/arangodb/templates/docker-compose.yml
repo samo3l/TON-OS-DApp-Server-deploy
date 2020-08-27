@@ -7,12 +7,19 @@ services:
     container_name: arangodb
     restart: unless-stopped
     environment:
-      ARANGO_NO_AUTH: 1
-      VIRTUAL_HOST: arango.baremetal01.fra02.ibm.cloud
-      VIRTUAL_PORT: 8529
-      LETSENCRYPT_HOST: arango.baremetal01.fra02.ibm.cloud
-      LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"
-      ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY: 343579738368
+      ARANGO_NO_AUTH: '{{ ARANGO_NO_AUTH }}'
+      VIRTUAL_HOST: '{{ VIRTUAL_HOST }}'
+      VIRTUAL_PORT: '{{ VIRTUAL_PORT }}'
+      LETSENCRYPT_HOST: '{{ LETSENCRYPT_HOST }}'
+      LETSENCRYPT_EMAIL: '{{ LETSENCRYPT_EMAIL }}'
+      ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY: '{{ ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY }}'
+      ARANGO_ROOT_PASSWORD: '{{ ARANGO_ROOT_PASSWORD }}'
+      NETWORK_TYPE: '{{ NETWORK_TYPE }}'
+      INSTANCE_NAME: '{{ INSTANCE_NAME }}'
+      ARANGO_SERVICE_SERVICE_HOST: '{{ ARANGO_SERVICE_SERVICE_HOST }}'
+      ARANGO_SERVICE_SERVICE_PORT: '{{ ARANGO_SERVICE_SERVICE_PORT }}'
+      ARANGONI_SERVICE_SERVICE_HOST: '{{ ARANGONI_SERVICE_SERVICE_HOST }}'
+      ARANGONI_SERVICE_SERVICE_PORT: '{{ ARANGONI_SERVICE_SERVICE_PORT }}'
     networks:
       - proxy_nw
     volumes:
@@ -35,11 +42,18 @@ services:
     container_name: arangodbni
     restart: unless-stopped
     environment:
-      ARANGO_NO_AUTH: 1
-      VIRTUAL_HOST: arangoni.baremetal01.fra02.ibm.cloud
-      VIRTUAL_PORT: 8529
-      LETSENCRYPT_HOST: arangoni.baremetal01.fra02.ibm.cloud
-      LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"
+      ARANGO_NO_AUTH: '{{ ARANGONI_NO_AUTH }}'
+      VIRTUAL_HOST: '{{ ARANGONI_VIRTUAL_HOST }}'
+      VIRTUAL_PORT: '{{ ARANGONI_VIRTUAL_PORT }}'
+      LETSENCRYPT_HOST: '{{ ARANGONI_LETSENCRYPT_HOST }}'
+      LETSENCRYPT_EMAIL: '{{ ARANGONI_LETSENCRYPT_EMAIL }}'
+      ARANGO_ROOT_PASSWORD: '{{ ARANGO_ROOT_PASSWORD }}'
+      NETWORK_TYPE: '{{ NETWORK_TYPE }}'
+      INSTANCE_NAME: '{{ INSTANCE_NAME }}'
+      ARANGO_SERVICE_SERVICE_HOST: '{{ ARANGO_SERVICE_SERVICE_HOST }}'
+      ARANGO_SERVICE_SERVICE_PORT: '{{ ARANGO_SERVICE_SERVICE_PORT }}'
+      ARANGONI_SERVICE_SERVICE_HOST: '{{ ARANGONI_SERVICE_SERVICE_HOST }}'
+      ARANGONI_SERVICE_SERVICE_PORT: '{{ ARANGONI_SERVICE_SERVICE_PORT }}'
     networks:
       - proxy_nw
     volumes:

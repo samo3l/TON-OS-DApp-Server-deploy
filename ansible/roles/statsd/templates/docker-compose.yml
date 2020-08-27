@@ -3,18 +3,23 @@ services:
   statsd:
     #        build:
     #            context: ./build
-    image: "${IMAGE}"
+    image: '{{ IMAGE }}'
     container_name: statsd
     restart: unless-stopped
     expose:
-      - "${UDP_PORT}/udp"
+      - "{{ UDP_PORT }}/udp"
     ports:
-      - "${IntIP}:${TCP_PORT}:${TCP_PORT}"
+      - "{{ IntIP }}:{{ TCP_PORT }}"
     networks:
       - proxy_nw
     volumes:
       - ./statsd-mapping.yaml:/statsd-mappings/statsd-mapping.yaml
-    command: ["${ARGS}"]
+    command: ["{{ ARGS }}"]
+    environment:
+      ARGS: '{{ ARGS }}'
+      UDP_PORT: '{{ UDP_PORT }}'
+      TCP_PORT: '{{ TCP_PORT }}'
+      IntIP: '{{ IntIP }}'
     logging: 
       driver: gelf 
       options:
