@@ -1,0 +1,150 @@
+"Request with external inbound message"
+input Request {
+    "256-bit Hash of message in base64"
+    id: String
+    "Serialized message in base64"
+    body: String
+    "Message expiration time (unix time in ms)"
+    expireAt: Float
+}
+
+" GraphQL Server info"
+type Info {
+    " Server version "
+    version: String
+    " Server unix time in ms"
+    time: Float
+}
+
+"Aggregation function used to collect aggregated value"
+enum AggregationFn {
+    "Returns count of filtered record"
+    COUNT
+    "Returns the minimal value for a field in filtered records"
+    MIN
+    "Returns the maximal value for a field in filtered records"
+    MAX
+    "Returns a sum of values for a field in filtered records"
+    SUM
+    "Returns an average value for a field in filtered records"
+    AVERAGE
+}
+
+
+"Specify field and aggregation function used to collect aggregated value"
+input FieldAggregation {
+    "Dot separated path to field. Can be omitted for COUNT fn."
+    field: String
+    "Aggregation function. Default value is COUNT."
+    fn: AggregationFn
+}
+
+extend type Query {
+    info: Info
+    "Obsolete. Use aggregation queries instead."
+    getAccountsCount(accessKey: String): Float
+    "Obsolete. Use aggregation queries instead."
+    getTransactionsCount(accessKey: String): Float
+    "Obsolete. Use aggregation queries instead."
+    getAccountsTotalBalance(accessKey: String): String
+
+    "Returns one time access key for management functions"
+    getManagementAccessKey: String
+
+    "Compute aggregated values for specified fields"
+    aggregateBlockSignatures(
+        "Specify filter for records to aggregate"
+        filter: BlockSignaturesFilter,
+        "Specify list of fields to collect aggregated values"
+        fields: [FieldAggregation],
+        "Specify access key if required"
+        accessKey: String
+    ): [String]
+
+    "Compute aggregated values for specified fields"
+    aggregateBlocks(
+        "Specify filter for records to aggregate"
+        filter: BlockFilter,
+        "Specify list of fields to collect aggregated values"
+        fields: [FieldAggregation],
+        "Specify access key if required"
+        accessKey: String
+    ): [String]
+
+    "Compute aggregated values for specified fields"
+    aggregateTransactions(
+        "Specify filter for records to aggregate"
+        filter: TransactionFilter,
+        "Specify list of fields to collect aggregated values"
+        fields: [FieldAggregation],
+        "Specify access key if required"
+        accessKey: String
+    ): [String]
+
+    "Compute aggregated values for specified fields"
+    aggregateMessages(
+        "Specify filter for records to aggregate"
+        filter: MessageFilter,
+        "Specify list of fields to collect aggregated values"
+        fields: [FieldAggregation],
+        "Specify access key if required"
+        accessKey: String
+    ): [String]
+
+    "Compute aggregated values for specified fields"
+    aggregateAccounts(
+        "Specify filter for records to aggregate"
+        filter: AccountFilter,
+        "Specify list of fields to collect aggregated values"
+        fields: [FieldAggregation],
+        "Specify access key if required"
+        accessKey: String
+    ): [String]
+}
+
+input AccessKey {
+    "User defined access key"
+    key: String
+    """
+    Additional restrictions to specified accounts.
+    User will see only subset of a blockchain related to specified accounts.
+    If omitted or is an empty array then user has no restrictions.
+    """
+    restrictToAccounts: [String]
+}
+
+type Mutation {
+    "Post external inbound message to blockchain node."
+    postRequests(
+        "List of message requests"
+        requests: [Request],
+        "Access key if required"
+        accessKey: String
+    ): [String]
+
+    "Register GraphQL services access keys. Returns number of actually registered keys"
+    registerAccessKeys(
+        "Account contract address"
+        account: String,
+        "Access keys associated with account"
+        keys: [AccessKey],
+        "Management access key obtained with getManagementAccessKey and signed using key pair of account contract"
+        signedManagementAccessKey: String,
+    ): Int
+
+    "Revoke GraphQL services access keys. Returns number of actually revoked keys"
+    revokeAccessKeys(
+        "Account contract address"
+        account: String,
+        "Access keys associated with account"
+        keys: [String],
+        "Management access key obtained with getManagementAccessKey and signed using key pair of account contract"
+        signedManagementAccessKey: String,
+    ): Int
+
+    "Stop listeners for specified operations"
+    finishOperations(
+        "Operation identifiers"
+        operationIds: [String],
+    ): Int
+}

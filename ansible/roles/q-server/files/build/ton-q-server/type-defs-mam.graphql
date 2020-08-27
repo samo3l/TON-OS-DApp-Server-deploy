@@ -1,0 +1,52 @@
+type Info {
+    version: String
+}
+
+type IndexInfo {
+    fields: String
+}
+
+type CollectionSummary {
+    name: String
+    count: Float
+    indexes: [String]
+}
+
+type ListenerStat {
+    filter: String
+    selection: String
+    queueSize: Int
+    eventCount: Int
+    secondsActive: Float
+}
+
+type CollectionStat {
+    name: String
+    subscriptionCount: Int
+    waitForCount: Int
+    maxQueueSize: Int
+    subscriptions: [ListenerStat]
+    waitFor: [ListenerStat]
+}
+
+type Stat {
+    subscriptionCount: Int
+    waitForCount: Int
+    collections: [CollectionStat]
+}
+
+type Query {
+    info: Info
+    getCollections(accessKey: String): [CollectionSummary]
+    stat(accessKey: String): Stat
+}
+
+type Mutation {
+    dropCachedDbInfo(accessKey: String): Boolean
+}
+
+enum ChangeLogOp {
+    CLEAR
+    ON
+    OFF
+}
