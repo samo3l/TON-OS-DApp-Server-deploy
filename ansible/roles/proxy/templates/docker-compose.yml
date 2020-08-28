@@ -14,7 +14,7 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - nw
+      - proxy_nw
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/ssl/docker:/etc/nginx/certs
@@ -42,7 +42,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/ssl/docker:/etc/nginx/certs:rw
     networks:
-      - nw
+      - proxy_nw
     volumes_from:
       - proxy
     logging: 
@@ -51,8 +51,6 @@ services:
         gelf-address: "udp://localhost:12201"
         tag: "letsencrypt"
 
-
-
 networks:
-  nw:
-    driver: bridge
+  proxy_nw:
+    external: true

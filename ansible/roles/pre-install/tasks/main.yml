@@ -14,7 +14,3 @@
 - name: "Create proxy network"
   shell: 'docker network create proxy_nw || true '
   tags: up
-
-- name: "Create proxy network"
-  shell: 'docker network delete proxy_nw || true '
-  tags: down
