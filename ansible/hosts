@@ -21,3 +21,6 @@ localhost ansible_connection=local
 
 [ELK]
 localhost ansible_connection=local
+
+[monitoring]
+localhost ansible_connection=local

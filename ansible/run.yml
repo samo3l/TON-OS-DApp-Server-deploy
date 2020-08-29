@@ -54,3 +54,10 @@
   roles:
     - pre-install
     - ELK
+
+- name: monitoring
+  hosts: monitoring
+  remote_user: root
+  roles:
+    - pre-install
+    - monitoring

@@ -1,0 +1,6 @@
+telegram_user_ids:
+  - 347485603
+  - 485824225
+telegram_bot_token: 1298275580:AAGcLHNbNjNHxBn3vk-7yEQtIv833t3gjdE
+grafana_username: admin
+grafana_password: secret
