@@ -16,6 +16,7 @@ services:
       Q_REQUESTS_TOPIC: '{{ Q_REQUESTS_TOPIC }}'
       Q_DATABASE_MAX_SOCKETS: '{{ Q_DATABASE_MAX_SOCKETS }}'
       Q_SLOW_DATABASE_MAX_SOCKETS: '{{ Q_SLOW_DATABASE_MAX_SOCKETS }}'
+      Q_STATSD_SERVER: 'statsd:9125'
     networks:
       - proxy_nw
     expose:
