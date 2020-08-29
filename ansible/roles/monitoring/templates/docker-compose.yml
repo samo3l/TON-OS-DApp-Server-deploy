@@ -58,8 +58,8 @@ services:
       - --store=bolt
       - --bolt.path=/data/bot.db
     environment:
-      - TELEGRAM_ADMIN="{% for id in telegram_user_ids %}{{ id }}\n{% endfor %}"
-      - TELEGRAM_TOKEN={{ telegram_bot_token }}
+      TELEGRAM_ADMIN: "{% for id in telegram_user_ids %}{{ id }}\n{% endfor %}"
+      TELEGRAM_TOKEN: "{{ telegram_bot_token }}"
     restart: unless-stopped
     ports:
       - 8088:8080
