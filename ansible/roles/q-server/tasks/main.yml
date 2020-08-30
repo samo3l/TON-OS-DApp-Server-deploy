@@ -10,6 +10,12 @@
     mode: 0755
   tags: up
 
+- name: "Clone src"
+  git:
+    repo: 'https://github.com/tonlabs/ton-q-server'
+    dest: '/opt/{{ role_name }}/build/ton-q-server'
+    version: '{{ version }}'
+
 - name: "Template docker-compose.yml"
   template:
     src: 'docker-compose.yml'
@@ -18,7 +24,7 @@
   tags: up
 
 - name: "Run docker-compose"
-  shell: 'cd /opt/{{ role_name }} && docker-compose up -d'
+  shell: 'cd /opt/{{ role_name }} && docker-compose up -d --build'
   tags: up
 
 - name: "Shut down docker-compose"

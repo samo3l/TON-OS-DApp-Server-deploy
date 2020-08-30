@@ -1,5 +1,7 @@
 # q-server service
 
+version: master
+
 VIRTUAL_HOST: "q-server"
 VIRTUAL_PORT: 4000
 Q_DATABASE_SERVER: "arangodb:8529"
