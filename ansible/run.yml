@@ -1,4 +1,4 @@
----
+--
 - name: proxy
   hosts: 
    - proxy
