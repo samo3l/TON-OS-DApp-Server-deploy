@@ -1,0 +1,8 @@
+# web.root service
+
+protocol: http
+#protocol: https
+
+VIRTUAL_HOST: "baremetal01.fra02.ibm.cloud"
+LETSENCRYPT_HOST: "baremetal01.fra02.ibm.cloud"
+LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"

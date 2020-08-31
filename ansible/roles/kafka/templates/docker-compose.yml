@@ -19,9 +19,8 @@ services:
     logging:
       driver: gelf
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "zookeeper"
-
 
   kafka:
     image: confluentinc/cp-kafka:5.3.1
@@ -56,7 +55,7 @@ services:
     logging: 
       driver: gelf 
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "kafka"
 
   connect:
@@ -109,7 +108,7 @@ services:
     logging: 
       driver: gelf 
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "connect"
 
 
@@ -131,7 +130,7 @@ services:
     logging: 
       driver: gelf 
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "schema-registry"
     networks:
       - proxy_nw
@@ -159,7 +158,7 @@ services:
     logging: 
       driver: gelf 
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "check-connect"
 
 

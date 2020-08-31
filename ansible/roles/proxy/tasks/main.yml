@@ -17,8 +17,30 @@
     mode: 0755
   tags: up
 
+- name: "Template vhost.d"
+  template:
+    src: '{{ item }}'
+    dest: '/opt/{{ role_name }}/vhost.d/{{ inventory_hostname }}'
+    mode: 0755
+  tags: up
+  with_items:
+    - graphql
+
+- name: "Create htpasswd files"
+  htpasswd:
+    path: '/opt/{{ role_name }}/htpasswd/{{ item }}'
+    name: '{{ username }}'
+    password: '{{ password }}'
+    mode: 0640
+  tags: up
+  with_items:
+    - "{{ inventory_hostname }}"
+    - "arango.{{ inventory_hostname }}"
+    - "arangoni.{{ inventory_hostname }}"
+  when: auth == True
+
 - name: "Run docker-compose"
-  shell: 'cd /opt/{{ role_name }} && docker-compose up -d'
+  shell: 'cd /opt/{{ role_name }} && docker-compose up -d --build'
   tags: up
 
 - name: "Shut down docker-compose"

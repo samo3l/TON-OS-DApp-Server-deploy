@@ -1,17 +1,18 @@
 ---
 - name: proxy
-  hosts: proxy
+  hosts: 
+   - proxy
   remote_user: root
   roles:
     - pre-install
     - proxy
 
-- name: web.root
-  hosts: web.root
+- name: web-root
+  hosts: web-root
   remote_user: root
   roles:
     - pre-install
-    - web.root
+    - web-root
 
 - name: arangodb
   hosts: arangodb
@@ -55,9 +56,16 @@
     - pre-install
     - ELK
 
-- name: monitoring
-  hosts: monitoring
+- name: monitoring-server
+  hosts: monitoring-server
   remote_user: root
   roles:
     - pre-install
-    - monitoring
+    - monitoring-server
+
+- name: monitoring-node
+  hosts: monitoring-node
+  remote_user: root
+  roles:
+    - pre-install
+    - monitoring-node

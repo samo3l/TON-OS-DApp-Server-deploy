@@ -21,7 +21,9 @@ services:
       - ./vhost.d:/etc/nginx/vhost.d
       - /usr/share/nginx/html
       - ./proxy-settings.conf:/etc/nginx/conf.d/proxy-settings.conf
+{% if auth == true %}
       - ./htpasswd:/etc/nginx/htpasswd
+{% endif %}
     healthcheck:
       test: grep -q -e 00000000:0050 -e 00000000:01BB /proc/net/tcp
       interval: 1m30s
@@ -31,7 +33,7 @@ services:
     logging: 
       driver: gelf 
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "proxy"
 
   letsencrypt:
@@ -48,7 +50,7 @@ services:
     logging: 
       driver: gelf 
       options:
-        gelf-address: "udp://localhost:12201"
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
         tag: "letsencrypt"
 
 networks:
