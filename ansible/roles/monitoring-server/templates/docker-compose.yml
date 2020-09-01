@@ -1,8 +1,8 @@
 version: "3"
 
 networks:
-  monitor-net:
-    driver: bridge
+  proxy_nw:
+    external: true
 
 volumes:
     prometheus_data: {}
@@ -27,7 +27,7 @@ services:
     ports:
       - 9090:9090
     networks:
-      - monitor-net
+      - proxy_nw
     labels:
       org.label-schema.group: "monitoring"
     logging:
@@ -48,7 +48,7 @@ services:
     ports:
       - 9093:9093
     networks:
-      - monitor-net
+      - proxy_nw
     labels:
       org.label-schema.group: "monitoring"
     logging:
@@ -74,7 +74,7 @@ services:
     ports:
       - 8088:8080
     networks:
-      - monitor-net
+      - proxy_nw
     labels:
       org.label-schema.group: "monitoring"
     logging:
@@ -97,7 +97,8 @@ services:
     ports:
       - 3000:3000
     networks:
-      - monitor-net
+      - proxy_nw
+
     labels:
       org.label-schema.group: "monitoring"
     logging:
@@ -113,7 +114,7 @@ services:
     ports:
       - 9091:9091
     networks:
-      - monitor-net
+      - proxy_nw
     labels:
       org.label-schema.group: "monitoring"
     logging:
