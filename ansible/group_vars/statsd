@@ -4,5 +4,3 @@ IMAGE: "prom/statsd-exporter:v0.12.2"
 ARGS: "--statsd.mapping-config=/statsd-mappings/statsd-mapping.yaml"
 UDP_PORT: 9125
 TCP_PORT: 9102
-#IntIP: "158.177.130.148:30303"
-IntIP: "30303"

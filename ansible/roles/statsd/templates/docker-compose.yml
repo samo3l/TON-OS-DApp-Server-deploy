@@ -9,7 +9,7 @@ services:
     expose:
       - "{{ UDP_PORT }}/udp"
     ports:
-      - "{{ IntIP }}:{{ TCP_PORT }}"
+      - "{{ TCP_PORT }}:{{ TCP_PORT }}"
     networks:
       - proxy_nw
     volumes:
@@ -19,7 +19,6 @@ services:
       ARGS: '{{ ARGS }}'
       UDP_PORT: '{{ UDP_PORT }}'
       TCP_PORT: '{{ TCP_PORT }}'
-      IntIP: '{{ IntIP }}'
     logging: 
       driver: gelf 
       options:
