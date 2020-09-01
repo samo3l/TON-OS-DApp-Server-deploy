@@ -44,6 +44,13 @@ scrape_configs:
     static_configs:
       - targets: ['statsd:9125']
 
+  - job_name: arangodb
+    static_configs:
+{% for host in groups['arangodb'] %}
+      - targets: ['{{ host }}:9101']
+      - targets: ['{{ host }}:9102']
+{% endfor %}
+
 
 alerting:
   alertmanagers:

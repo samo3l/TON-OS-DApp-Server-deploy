@@ -13,14 +13,14 @@
 - name: "Template docker-compose.yml"
   template:
     src: 'docker-compose.yml'
-    dest: '/opt/{{ role_name }}'
+    dest: '/opt/{{ role_name }}/'
     mode: 0755
   tags: up
 
 - name: "Template index.html"
   template:
     src: 'index.html'
-    dest: '/opt/{{ role_name }}'
+    dest: '/opt/{{ role_name }}/'
     mode: 0755
   tags: up
 

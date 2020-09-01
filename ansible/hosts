@@ -1,29 +1,29 @@
 [proxy]
-<hostname> ansible_connection=local
+#<hostname>
 
 [web-root]
-<hostname> ansible_connection=local
+#<hostname>
 
 [arangodb]
-<hostname> ansible_connection=local
+#<hostname>
 
 [q-server]
-<hostname> ansible_connection=local
+#<hostname>
 
 [kafka]
-<hostname> ansible_connection=local
+#<hostname>
 
 [statsd]
-<hostname> ansible_connection=local
+#<hostname>
 
 [ton-node]
-<hostname> ansible_connection=local
+#<hostname>
 
 [ELK]
-<hostname> ansible_connection=local
+#<hostname>
 
 [monitoring-server]
-<hostname> ansible_connection=local
+#<hostname>
 
 [monitoring-node]
-<hostname> ansible_connection=local
+localhost ansible_connection=local

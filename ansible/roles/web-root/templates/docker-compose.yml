@@ -2,11 +2,11 @@ version: '2'
 services:
   web.root:
     image: nginx:1.13.12
-    container_name: web.root
+    container_name: web-root
     restart: unless-stopped
     environment:
-      VIRTUAL_HOST: '{{ VIRTUAL_HOST }}'
-      LETSENCRYPT_HOST: '{{ LETSENCRYPT_HOST }}'
+      VIRTUAL_HOST: '{{ VIRTUAL_HOST | default(inventory_hostname) }}'
+      LETSENCRYPT_HOST: '{{ LETSENCRYPT_HOST | default(inventory_hostname) }}'
       LETSENCRYPT_EMAIL: '{{ LETSENCRYPT_EMAIL }}'
     networks:
       - proxy_nw
