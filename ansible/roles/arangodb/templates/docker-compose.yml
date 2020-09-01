@@ -40,6 +40,8 @@ services:
     image: arangodb/arangodb-exporter:0.1.3
     ports:
       - 9101:9101
+    networks:
+      - proxy_nw
     command: "--arangodb.endpoint=http://arangodb:8529"
     logging:
       driver: gelf
@@ -86,6 +88,8 @@ services:
     image: arangodb/arangodb-exporter:0.1.3
     ports:
       - 9102:9101
+    networks:
+      - proxy_nw
     command: "--arangodb.endpoint=http://arangodbni:8529"
     logging:
       driver: gelf
