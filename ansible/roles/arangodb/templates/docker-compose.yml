@@ -57,7 +57,7 @@ services:
     restart: unless-stopped
     environment:
       ARANGO_NO_AUTH: '{{ ARANGONI_NO_AUTH }}'
-      VIRTUAL_HOST: '{{ ARANGONI_VIRTUAL_HOST | default("arangodbni" + inventory_hostname) }}'
+      VIRTUAL_HOST: '{{ ARANGONI_VIRTUAL_HOST | default("arangodbni." + inventory_hostname) }}'
       VIRTUAL_PORT: '{{ ARANGONI_VIRTUAL_PORT }}'
       LETSENCRYPT_HOST: '{{ ARANGONI_LETSENCRYPT_HOST | default(inventory_hostname) }}'
       LETSENCRYPT_EMAIL: '{{ ARANGONI_LETSENCRYPT_EMAIL }}'
