@@ -122,7 +122,7 @@ Project is based on Ansible and follows all the best practices for writing playb
   <tr>
    <td>
 <p>
-===============================
+============================
 <img src="images/image1.png" width="" alt="alt_text" title="image_tooltip">
 
    </td>
@@ -131,7 +131,6 @@ Project is based on Ansible and follows all the best practices for writing playb
     Ansible project includes all the required roles to spin up monitoring, logging, alerting and DApp server nodes itself.  
 <p>
     Each component has its own role. Components of DApp server node are the following:
-<ol>
 
 <li>Arangodb
 
@@ -149,7 +148,6 @@ Project is based on Ansible and follows all the best practices for writing playb
 
 <p>
 Monitoring, logging and alerting stack:
-<ol>
 
 <li>ELK
 
@@ -160,10 +158,10 @@ Monitoring, logging and alerting stack:
 <p>
 And pre_install role to manage docker setup.
 <p>
-    Each role has variables defined in <em>group_vars/&lt;ansible_role_name></em> which are used to parse “Tasks” and “Templates”.
+    Each role has variables defined in group_vars/<ansible_role_name></em> which are used to parse “Tasks” and “Templates”.
 <p>
 Each role also has several directories:
-<ol>
+
 
 <li><em>Files</em> (build files and static configs)
 
@@ -174,15 +172,11 @@ Each role also has several directories:
 <p>
     The main file is called <em>run.yml</em> and it works in conjunction with the hosts file to manage where to execute specific roles. 
 </li>
-</ol>
 </li>
-</ol>
 </li>
-</ol>
    </td>
   </tr>
 </table>
-
 
 
 ### Variables description
