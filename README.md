@@ -10,10 +10,13 @@ Repository contains all the build and config files required for setting up TON-O
 
 *   **Ansible** - tool which automates all configuration
 *   **Docker** - builds images and hosts TON-OS-DApp-Server containers
+*   **Gelf** - logging driver is a convenient format that is understood by a number of tools
 *   **Docker-compose** - describes TON-OS-DApp-Server 
 *   **ELK** - collects logs from all the Docker containers
 *   **Prometheus** - scrapes metrics from TON-OS-DApp-Server components
+*   **Prom-exporters** - expose metrics which prometheus collect (q-server,ton-node,arangodb,etc)
 *   **Alertmanager** - responsible for alerts and notifications
+*   **Alertmanager-bot** - application which receive web-hook and send alerts to Telegram
 
 
 ## System requirements
@@ -46,9 +49,21 @@ Repository contains all the build and config files required for setting up TON-O
   </tr>
 </table>
 
-
-**NOTE**: SSD disks are recommended for the storage.
-
+## System configuration recommendations
+SSD disks are recommended for the storage.
+ext4 filesystem works not so good with huge amount small files this because we recommend not to use it for production proposes, use the xfs filesystem insted
+In a high network load Linux will drop UDP packages, we recommend to set this kernel parameters to optimize networking:
+```
+net.ipv4.udp_mem=8388608 12582912 16777216
+net.ipv4.udp_rmem_min=16384
+net.ipv4.udp_wmem_min=16384
+net.core.rmem_max=26214400
+net.core.wmem_max=26214400
+net.core.rmem_default=26214400
+net.core.wmem_default=26214400
+net.core.netdev_max_backlog=10000
+vm.dirty_ratio=50
+```
 
 ## Prerequisites
 
