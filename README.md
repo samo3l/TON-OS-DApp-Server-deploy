@@ -13,7 +13,7 @@ Repository contains all the build and config files required for setting up TON-O
 *   **Docker-compose** - describes TON-OS-DApp-Server 
 *   **ELK** - collects logs from all the Docker containers
 *   **Prometheus** - scrapes metrics from TON-OS-DApp-Server components
-*   **Alertmanager **- responsible for alerts and notifications
+*   **Alertmanager** - responsible for alerts and notifications
 
 
 ## System requirements
@@ -54,7 +54,7 @@ Repository contains all the build and config files required for setting up TON-O
 
 
 1. At least 1 server with public IP address (at least- responsible for alerts and notifications 3 recommended)
-2. Public DNS A entries for DApp server[^1]: 
+2. Public DNS A entries for DApp server: 
 *   Graphql A record
 *   ArangoDB A record
 *   ArangoDBNI A record
@@ -89,7 +89,7 @@ cd ansible
 ```
 vim hosts
 ```
-3. Copy ssh pub key to remote server (optional, because password also can be used)[^3] 
+3. Copy ssh pub key to remote server (optional, because password also can be used)
 
 4. Install docker, docker-compose, and setup docker network:
 ```
@@ -121,7 +121,7 @@ Project is based on Ansible and follows all the best practices for writing playb
   </tr>
   <tr>
    <td>
-
+<td>====================================</td>
 <img src="images/image1.png" width="" alt="alt_text" title="image_tooltip">
 
    </td>
@@ -1011,7 +1011,7 @@ If true basic auth will be configured for each endpoint
 
 
 
-## High-Level Architecture diagram \
+## High-Level Architecture diagram
 
 
 
@@ -1054,7 +1054,7 @@ Configuration example:
       driver: gelf
       options:
         gelf-address: "udp://logstash:12201"
-        tag: "statsd" \
+        tag: "statsd"
 ```
 
 Logs go to the logstash docker container. In logstash we can configure additional logs parsing and processing. From logstash logs passes to elasticsearch. Kibana setup to provide a web interface for logs representation and search.
