@@ -34,6 +34,9 @@ Repository contains all the build and config files required for setting up TON-O
    </td>
    <td><strong>Network (Gbit/s)</strong>
    </td>
+   </td>
+   <td><strong>OS</strong>
+   </td>
   </tr>
   <tr>
    <td>Recommended
@@ -44,15 +47,24 @@ Repository contains all the build and config files required for setting up TON-O
    </td>
    <td>2000
    </td>
+   </td>
+   <td>CentOS 7, Ubuntu 18.04 LTS
+   </td>
    <td>1
    </td>
   </tr>
 </table>
 
+**NOTE**: other Linux distributions should work but not verified.
+
 ## System configuration recommendations
+
 SSD disks are recommended for the storage.
-ext4 filesystem works not so good with huge amount small files this because we recommend not to use it for production proposes, use the xfs filesystem insted
+
+xfs filesystem is recommended instead of ext4. If you are using ext4 don't forget to increase open files limit.
+
 In a high network load Linux will drop UDP packages, we recommend to set this kernel parameters to optimize networking:
+
 ```
 net.ipv4.udp_mem=8388608 12582912 16777216
 net.ipv4.udp_rmem_min=16384
