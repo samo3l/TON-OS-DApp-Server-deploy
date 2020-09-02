@@ -121,7 +121,8 @@ Project is based on Ansible and follows all the best practices for writing playb
   </tr>
   <tr>
    <td>
-<td>====================================</td>
+<p>
+===============================
 <img src="images/image1.png" width="" alt="alt_text" title="image_tooltip">
 
    </td>
