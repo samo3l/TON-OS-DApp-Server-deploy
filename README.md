@@ -1,24 +1,4 @@
 
-
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 0; ALERTS: 11.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
-<a href="#gdcalert2">alert2</a>
-<a href="#gdcalert3">alert3</a>
-<a href="#gdcalert4">alert4</a>
-<a href="#gdcalert5">alert5</a>
-<a href="#gdcalert6">alert6</a>
-<a href="#gdcalert7">alert7</a>
-<a href="#gdcalert8">alert8</a>
-<a href="#gdcalert9">alert9</a>
-<a href="#gdcalert10">alert10</a>
-<a href="#gdcalert11">alert11</a>
-
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
-
-
 ## Description
 
 Repository contains all the build and config files required for setting up TON-OS-DApp-Server using a fully automated approach based on Ansible.
@@ -73,25 +53,28 @@ Repository contains all the build and config files required for setting up TON-O
 ## Prerequisites
 
 
-
 1. At least 1 server with public IP address (at least- responsible for alerts and notifications 3 recommended)
 2. Public DNS A entries for DApp server[^1]: 
-
-
 *   Graphql A record
 *   ArangoDB A record
 *   ArangoDBNI A record
 3. Ansible installed. Required version - 2.9.6
 
-If you don't have a public DNS zone you can buy from any provider. e.q. GoDaddy. If you don't familiar with that just follow this page: [https://ua.godaddy.com/domains](https://ua.godaddy.com/domains) \
+If you don't have a public DNS zone you can buy from any provider. e.q. GoDaddy. If you don't familiar with that just follow this page [https://ua.godaddy.com/domains](https://ua.godaddy.com/domains) 
+
 As an additional layer of security you can add domain to [Cloudflare](cloudflare.com) (or use [letsencrypt](https://letsencrypt.org), playbook by default will issue certificates in letsencrypt automatically)
 
 By default playbook will install 2 endpoints with basic auth (see group_vars/proxy):
 
+```
   <inventory_hostname>
   arangodb.<inventory_hostname>
-  arangodbni.<inventory_hostname> \
-If you want to customize this hostnames specify ARANGODB_VIRTUAL_HOST and ARANGODBNI_VIRTUAL_HOST variables inside group_vars/arangodb. 
+  arangodbni.<inventory_hostname>
+```
+
+If you want to customize this hostnames specify ARANGODB_VIRTUAL_HOST and ARANGODBNI_VIRTUAL_HOST variables inside group_vars/arangodb
+
+**NOTE**: In case of setup **single-node architecture** you can point A records to single IP
 
 
 ## Quick start
@@ -121,6 +104,9 @@ ansible-playbook -u root -i hosts run.yml -t up
 ansible-playbook -u root -i hosts run.yml -t down
 ```
 
+**NOTE**: please note that only hostnames should be used! Alternatively you can use ansible_connection=local
+
+
 ## Project structure
 
 Project is based on Ansible and follows all the best practices for writing playbooks. 
@@ -135,9 +121,6 @@ Project is based on Ansible and follows all the best practices for writing playb
   </tr>
   <tr>
    <td>
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 <img src="images/image1.png" width="" alt="alt_text" title="image_tooltip">
 
@@ -1034,8 +1017,6 @@ If true basic auth will be configured for each endpoint
 
 ## 
 
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](images/image2.png "image_tooltip")
 
@@ -1044,35 +1025,29 @@ If true basic auth will be configured for each endpoint
 
 The core element of TON OS DApp Server is a TON node written in Rust focused on performance and safety. TON OS DApp Server provides a set of services serving TON SDK endpoint: scalable multi-model database ArangoDB with the information about all blockchain entities (like accounts, blocks, transactions, etc.) stored over time, distributed high-throughput, low-latency streaming platform Kafka, TON GraphQL Server (aka Q-Server) for serving GraphQL queries to the database and Nginx web-server.
 
-** \
-Q-Server** is accessible with GraphQL HTTP/WebSocket protocol on port "4000" and path "/graphql". Q-Server represents the read only part to provide GraphQL Endpoint. In case of write operation Q-Server creates an event into the Kafka and responds back. Then ton-node will catch this message and send it into blockchain.   
+**Q-Server** is accessible with GraphQL HTTP/WebSocket protocol on port "4000" and path "/graphql". Q-Server represents the read only part to provide GraphQL Endpoint. In case of write operation Q-Server creates an event into the Kafka and responds back. Then ton-node will catch this message and send it into blockchain.   
 
- \
-**Rust TON Node **works with Kafka and two arangodb databases and also depends on statsd. As a database TON Node uses RocksDB. ** \
-**
+**Rust TON Node** works with Kafka and two arangodb databases and also depends on statsd. As a database TON Node uses RocksDB.
 
-With help of this ansible-playbook TON DApps Server can be setup in several ways:
-
-
+With help of our ansible-playbook TON DApps Server can be setup in several ways:
 
 *   Single-node architecture
 
 In this case all components will be installed on a single node (“all-in-one”). Including monitoring server and logging server.
 
-
-
 *   Multi-node architecture
 
 Automation scripts provide a way to install each component to different nodes. We recommend installing kafka, arangodb`s, q-server separately from tone node. To ensure that the ton-node will have maximum possible network throughput and IOPS.
 
-**Kafka **used by q-server and ton-node. Also Kafka uses two Arangodb databases. For Kafka -> Arangodb communication kafka uses _arangodb kafka connector. _
+**Kafka** used by q-server and ton-node. Also Kafka uses two Arangodb databases. For Kafka -> Arangodb communication kafka uses _arangodb kafka connector.
 
 
 ## Logging
 
-_Please, note that for production use it’s recommended to setup logging software without public access or additionally configure authentication. _
+Please, note that for production use it’s recommended to setup logging software without public access or additionally configure authentication.
 
-Each docker container has logging configuration to send logs over UDP to remote (or local in case of single node architecture).  All processes inside docker containers configured to send logs to stdout/stderr. This way helps ensure that components (especially **ton-node**) will have a maximum of available server IOPS. Automation scripts use a Gelf logging driver. \
+Each docker container has logging configuration to send logs over UDP to remote (or local in case of single node architecture).  All processes inside docker containers configured to send logs to stdout/stderr. This way helps ensure that components (especially **ton-node**) will have a maximum of available server IOPS. Automation scripts use a Gelf logging driver.
+
 Configuration example:
 ```
     logging:
@@ -1081,11 +1056,10 @@ Configuration example:
         gelf-address: "udp://logstash:12201"
         tag: "statsd" \
 ```
-Logs go to the logstash docker container. In logstash we can configure additional logs parsing and processing. From logstash logs passes to elasticsearch. Kibana setup to provide a web interface for logs representation and search.  \
-Logs from each container tagget get a unique tag to provide the ability to separate logs. There are several tags exists: \
 
+Logs go to the logstash docker container. In logstash we can configure additional logs parsing and processing. From logstash logs passes to elasticsearch. Kibana setup to provide a web interface for logs representation and search.
 
-
+Logs from each container tagget get a unique tag to provide the ability to separate logs. There are several tags exists:
 
 *   ton-node
 *   q-server
@@ -1096,53 +1070,28 @@ Logs from each container tagget get a unique tag to provide the ability to separ
 Kibana: 
 
 
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image3.png "image_tooltip")
-
 
 
 ## Monitoring
 
 **General prometheus dashboard**
 
-Alerts, monitoring stack information** \
-**
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
+Alerts, monitoring stack information
 
 ![alt_text](images/image4.png "image_tooltip")
-
 
 **Docker containers:**
 
 CPU/Memory/Disk/Status
 
-
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image5.png "image_tooltip")
-** \
-**
 
 **Docker Host Dashboard**
 
-Overall information about docker hosts. CPU/Memory/IOPS, etc** \
-**
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
+Overall information about docker hosts. CPU/Memory/IOPS, etc
 
 ![alt_text](images/image6.png "image_tooltip")
-
-
-** \
-**
 
 **Q-Server** configured to reports several StatsD metrics:
 ```
@@ -1190,13 +1139,7 @@ node.last_applied_mc_block gauge  Reportes applied block in current block \
 ```
 We have aggregated all information related to q-server and rust ton node to Grafana dashboard:
 
-
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image7.png "image_tooltip")
-
 
 **ArangoDB** configured to provide this metrics to Prometheus:
 ```
@@ -1218,47 +1161,29 @@ arangodb_client_user_connection_statistics_request_time_sum gauge arangodb_clien
 ```
 Metrics aggregated to Grafana Dashboard:
 
-
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image8.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image8.png "image_tooltip")
-
 
 Also optionally arangodb web interface could be exposed:
 
-
-
-<p id="gdcalert9" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image9.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert10">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image9.png "image_tooltip")
-
-
 
 ## Alerts
 
 We configured Telegram bot to send notification to Telegram. Bot added to prometheus docker-compose. Prometheus configured to send a web-hook to it. To create bot use @botfather the provide token into vars and start monitoring-server playbook \
-Alerts example: \
 
-
-<p id="gdcalert10" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image10.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert11">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
+Alerts example:
 
 ![alt_text](images/image10.png "image_tooltip")
-
-
-<p id="gdcalert11" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image11.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert12">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](images/image11.png "image_tooltip")
 
 
-
 ## GraphQL query examples
 
-After DApss Server installed. We need to verify that DApss Server works properly. We need to check both types of queries **read** and **write**. Some examples how to do that described below:
+After DApss Server installed. We need to verify that DApss Server works properly. We need to check both types of queries **read** and **write**. 
+
+Some examples how to do that described below:
 
 Queries to **read** data from blockchain**:** 
 ```
@@ -1339,66 +1264,42 @@ The easiest way to check **write** operation to TON blockchain though DApps Serv
 
 To configure tonos-cli to use your DApps Server endpoint you can use this command:
 ```
-tonos-cli config --url http&lt;s>://&lt;hostname>_
+tonos-cli config --url http://<hostname>
 ```
 This command will create tonlabs-cli.conf.json in the current directory. Then you are ready to submit transactions. 
 ```
-tonos-cli call 0:a8781e344d996d8f6c6bb2a742530b097d8f92bfff1f7624be6a1eadcbd0cccb submitTransaction '{"dest":"0:b432d62676c97fbb10094cdfe167d29cb5b1fbc76de1e8c48b2ee1fc5ae6cafb","value": 1000000000,"bounce":"false","allBalance":"false","payload":""}' --abi SafeMultisigWallet.abi.json --sign deploy.keys.json_ \
+tonos-cli call 0:a8781e344d996d8f6c6bb2a742530b097d8f92bfff1f7624be6a1eadcbd0cccb submitTransaction '{"dest":"0:b432d62676c97fbb10094cdfe167d29cb5b1fbc76de1e8c48b2ee1fc5ae6cafb","value": 1000000000,"bounce":"false","allBalance":"false","payload":""}' --abi SafeMultisigWallet.abi.json --sign deploy.keys.json
 ```
-
 
 ## Maintainers
 
 Telegram:
 
-@renatSK
-
-@sostrovskyi
+* @renatSK
+* @sostrovskyi
 
 Github:
 
-@ddzsh
+* @ddzsh
+* @samostrovskyi
 
-@samostrovskyi
+Forum.freeton.org:
+* @Gofman
+* @sostrovskyi
 
-Forum.freeton.org: \
-@Gofman \
-@sostrovskyi \
+Gmail:
+* senegalelastico@gmail.com
+* renatskitsan@gmail.com
 
 
-Gmail: \
-senegalelastico@gmail.com
+FreeTON wallet address: 0:a2c66fbd01f0193c39127d1dd825e6d144d0581ca82a72a747d0af343b2c0b0b 
 
-renatskitsan@gmail.com \
- \
-FreeTON wallet address: 0:a2c66fbd01f0193c39127d1dd825e6d144d0581ca82a72a747d0af343b2c0b0b \
 Feel free to donate some crystals :) (of course if you like our scripts and support)
 
-
 ## Feature plans
-
-
 
 *   Extend metrics and grafana ton-node dashboard
 *   Add logstash configuration to parse each type of logs with special rules
 *   Add elasticsearch logs rotation
 *   Add basic auth for Kibana
 *   Add possibility to deploy High Availability components (kafka cluster, zookeeper cluster, arangodb in HA mode, multiple TON-nodes, HA reverse proxy endpoint)
-
-<!-- Footnotes themselves at the bottom. -->
-## Notes
-
-[^1]:
-
-     In case of setup** single-node architecture** you can point A records to single IP
-
-[^2]:
-
-     Please note that only hostnames should be used!
-
-[^3]:
-
-     Alternatively you can use ansible_connection=local
-[proxy]
-    <hostname> ansible_connection=local
-
