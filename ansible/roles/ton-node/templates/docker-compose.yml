@@ -25,7 +25,6 @@ services:
       - ./configs/:/ton-node/configs/
       - ./logs/:/ton-node/logs/
       - DB:/ton-node/node_db/
-      - /tmp/metrics/:/tmp/metrics/
     command: ["normal"]
     mem_limit: '{{ MEM_LIMIT }}'
     logging: 
