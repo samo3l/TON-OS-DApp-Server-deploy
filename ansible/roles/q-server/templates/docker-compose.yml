@@ -7,7 +7,7 @@ services:
     container_name: q-server
     restart: unless-stopped
     environment:
-      VIRTUAL_HOST: '{{ VIRTUAL_HOST }}'
+      VIRTUAL_HOST: '{{ VIRTUAL_HOST | default(inventory_hostname) }}'
       VIRTUAL_PORT: '{{ VIRTUAL_PORT }}'
       Q_DATABASE_SERVER: '{{ Q_DATABASE_SERVER }}'
       Q_SLOW_DATABASE_SERVER: '{{ Q_SLOW_DATABASE_SERVER }}'

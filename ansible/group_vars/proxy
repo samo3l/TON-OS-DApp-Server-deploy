@@ -1,4 +1,4 @@
 # proxy service
-auth: false
+auth: true
 username: admin
 password: admin123

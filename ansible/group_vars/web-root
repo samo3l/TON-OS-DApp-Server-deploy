@@ -3,6 +3,6 @@
 protocol: http
 #protocol: https
 
-#VIRTUAL_HOST: ""
+WEBROOT_VIRTUAL_HOST: "web-root"
 #LETSENCRYPT_HOST: ""
 LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"

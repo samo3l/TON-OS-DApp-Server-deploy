@@ -5,7 +5,7 @@ services:
     container_name: web-root
     restart: unless-stopped
     environment:
-      VIRTUAL_HOST: '{{ VIRTUAL_HOST | default(inventory_hostname) }}'
+      VIRTUAL_HOST: '{{ WEBROOT_VIRTUAL_HOST | default(inventory_hostname) }}'
       LETSENCRYPT_HOST: '{{ LETSENCRYPT_HOST | default(inventory_hostname) }}'
       LETSENCRYPT_EMAIL: '{{ LETSENCRYPT_EMAIL }}'
     networks:
