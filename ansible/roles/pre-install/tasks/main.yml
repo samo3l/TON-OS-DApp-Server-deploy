@@ -11,11 +11,12 @@
   shell: 'chmod +x /usr/local/bin/docker-compose'
   tags: install
 
-- name: "Install pip"
-  easy_install:
-    name: pip
-    state: latest
+- name: install pip
+  package:
+    name: python3-pip
+    state: present
   tags: install
+  
 
 - name: "Install pip libs"
   pip:
