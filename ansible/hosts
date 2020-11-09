@@ -1,38 +1,29 @@
 [proxy]
-fld.custler.net  
+#<hostname>
 
 [web-root]
-fld.custler.net  
 #<hostname>
 
 [arangodb]
-arangodb.custler.net  
 #<hostname>
 
 [q-server]
-fld.custler.net  
 #<hostname>
 
 [kafka]
-fld.custler.net  
 #<hostname>
 
 [statsd]
-fld.custler.net  
 #<hostname>
 
 [ton-node]
-fld.custler.net  
 #<hostname>
 
 [ELK]
-fld.custler.net  
 #<hostname>
 
 [monitoring-server]
-fld.custler.net  
 #<hostname>
 
 [monitoring-node]
-fld.custler.net  
 #<hostname>
