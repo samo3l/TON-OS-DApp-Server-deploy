@@ -9,6 +9,7 @@ services:
     environment:
       VIRTUAL_HOST: '{{ VIRTUAL_HOST | default(inventory_hostname) }}'
       VIRTUAL_PORT: '{{ VIRTUAL_PORT }}'
+      LETSENCRYPT_HOST: '{{ LETSENCRYPT_HOST | default(inventory_hostname) }}'
       Q_DATABASE_SERVER: '{{ Q_DATABASE_SERVER }}'
       Q_SLOW_DATABASE_SERVER: '{{ Q_SLOW_DATABASE_SERVER }}'
       Q_REQUESTS_MODE: '{{ Q_REQUESTS_MODE }}'

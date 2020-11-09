@@ -14,6 +14,7 @@
   git:
     repo: 'https://github.com/tonlabs/ton-q-server.git'
     dest: /opt/{{ role_name }}/build/ton-q-server
+    version: "{{ version }}"
   tags: up  
   
 - name: "Template docker-compose.yml"
@@ -22,8 +23,6 @@
     dest: '/opt/{{ role_name }}'
     mode: 0755
   tags: up
-
-
     
 - name: "Run docker-compose"
   shell: 'cd /opt/{{ role_name }} && docker-compose up -d --build'
