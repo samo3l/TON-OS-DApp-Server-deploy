@@ -11,11 +11,11 @@
   tags: up
 
 - name: "Git ton-q-server checkout"
-  git:
-    repo: 'https://github.com/tonlabs/ton-q-server.git'
-    dest: /opt/{{ role_name }}/build/ton-q-server
-    version: "{{ version }}"
-  tags: up  
+  unarchive:
+    src: "https://github.com/tonlabs/ton-q-server/archive/{{ version }}.zip"
+    dest: "/opt/{{ role_name }}/build/ton-q-server"
+    remote_src: yes
+  tags: up
   
 - name: "Template docker-compose.yml"
   template:
