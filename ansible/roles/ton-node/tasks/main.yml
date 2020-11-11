@@ -12,9 +12,10 @@
 
 - name: "Clone src"
   git:
-    repo: 'https://github.com/tonlabs/ton-labs-node'
-    dest: '/opt/{{ role_name }}/build/ton-labs-node'
+    repo: 'https://github.com/tonlabs/ton-labs-node.git'
+    dest: '/opt/{{ role_name }}/build/ton-node'
     version: '{{ version }}'
+  tags: up    
 
 - name: "Template docker-compose.yml"
   template:

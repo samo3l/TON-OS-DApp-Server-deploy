@@ -1,29 +1,19 @@
 [proxy]
-#<hostname>
 
 [web-root]
-#<hostname>
 
 [arangodb]
-#<hostname>
-
-[q-server]
-#<hostname>
 
 [kafka]
-#<hostname>
 
 [statsd]
-#<hostname>
 
 [ton-node]
-#<hostname>
+
+[q-server]
 
 [ELK]
-#<hostname>
 
 [monitoring-server]
-#<hostname>
 
 [monitoring-node]
-#<hostname>

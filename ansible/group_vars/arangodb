@@ -5,7 +5,7 @@ ARANGO_NO_AUTH: 1 # needs to be changed for production
 #ARANGO_VIRTUAL_HOST: ""
 ARANGODB_VIRTUAL_PORT: 8529
 #LETSENCRYPT_HOST: ""
-LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"
+LETSENCRYPT_EMAIL: "custmine@gmail.com"
 ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY: 343579738368
 
 # arangodbni service
@@ -14,7 +14,7 @@ ARANGONI_NO_AUTH: 1 # needs to be changed for production
 #ARANGONI_VIRTUAL_HOST: ""
 ARANGONI_VIRTUAL_PORT: 8529
 #ARANGONI_LETSENCRYPT_HOST: ""
-ARANGONI_LETSENCRYPT_EMAIL: "senegalelastico@gmail.com"
+ARANGONI_LETSENCRYPT_EMAIL: "custmine@gmail.com"
 
 # common
 
