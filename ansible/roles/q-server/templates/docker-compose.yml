@@ -24,10 +24,7 @@ services:
       - "4000"
     mem_limit: 5G
     logging: 
-      driver: gelf 
-      options:
-        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
-        tag: "q-server"
+      driver: json-file
 
 networks:
   proxy_nw:

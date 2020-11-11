@@ -1,6 +1,6 @@
 # node service
 
-version: master
+version: master # git branch/commit
 
 ADNL_PORT: 30303
 VALIDATOR_NAME: "my_validator"

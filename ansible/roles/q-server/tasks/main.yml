@@ -1,20 +1,17 @@
 
-- name: "Create /opt dir"
-  shell: 'mkdir -p /opt'
-  tags: up
-
-- name: "Copy build files"
-  copy:
-    src: '.'
-    dest: '/opt/{{ role_name }}/'
-    mode: 0755
+- name: Create directory
+  command: mkdir -p /opt/{{ role_name }}/build
   tags: up
 
 - name: "Git ton-q-server checkout"
   unarchive:
     src: "https://github.com/tonlabs/ton-q-server/archive/{{ version }}.zip"
-    dest: "/opt/{{ role_name }}/build/ton-q-server"
+    dest: "/opt/{{ role_name }}/build"
     remote_src: yes
+  tags: up
+
+- name: Move foo to bar
+  shell: mv /opt/{{ role_name }}/build/ton-q-server-{{ version }} /opt/{{ role_name }}/build/ton-q-server
   tags: up
   
 - name: "Template docker-compose.yml"
@@ -23,9 +20,16 @@
     dest: '/opt/{{ role_name }}'
     mode: 0755
   tags: up
+
+- name: "Copy build files"
+  copy:
+    src: '.'
+    dest: '/opt/{{ role_name }}/build'
+    mode: 0755
+  tags: up
     
 - name: "Run docker-compose"
-  shell: 'cd /opt/{{ role_name }} && docker-compose up -d --build'
+  shell: 'cd /opt/{{ role_name }} && docker-compose build --no-cache && docker-compose up -d --build'
   tags: up
 
 - name: "Shut down docker-compose"
