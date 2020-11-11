@@ -23,8 +23,11 @@ services:
     expose:
       - "4000"
     mem_limit: 5G
-    logging: 
-      driver: json-file
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://{{ hostvars[groups['ELK'][0]].inventory_hostname }}:12201"
+        tag: "node"
 
 networks:
   proxy_nw:
